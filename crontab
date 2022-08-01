@@ -1,0 +1,3 @@
+# This command schedules the scraper to run at 12:00am every day and then inputs the data into the MySQL DB
+# Replace ~ with the directory pearsonapi is stored in
+0 0 * * * docker exec pearsonapi_scraper_1 python3 main.py

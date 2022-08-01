@@ -1,0 +1,4 @@
+bs4==0.0.1
+mysql-connector-python==8.0.15
+python-dotenv==0.20.0
+requests==2.22.0

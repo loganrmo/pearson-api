@@ -1,0 +1,26 @@
+* Swagger API spec
+* Dockerize services - scraper, database, and API in a stack
+
+DONE: ---
+* Change credentials from env to secrets (Database, QueryExec)
+* Better error logging per function
+* Ensure error logs are not returned to client
+
+MAYBE: ---
+* Add HTTPS
+* Syslog logging for API
+* Add JWT authentication - programmatically distribute
+* Add rate limiting with token (IP?)
+
+// "('{flightCode}', '{flightDate}', '{city}', '{airportCode}', '{airlineName}', '{airlineCode}', '{scheduledTime}', '{revisedTime}', '{flightStatus}');"
+//  api/v1/arrivals?startDate=x
+//                 &endDate=x
+//                 &flightCode=x    // Optional
+//                 &city=x          // Optional
+//                 &airportCode=x   // Optional
+//                 &airlineName=x   // Optional
+//                 &airlineCode=x   // Optional
+//                 &scheduledTime=x // Optional
+//                 &revisedTime=x   // Optional - If Canceled, leave it out
+//                 &flightStatus=x  // Optional
+//         departures?

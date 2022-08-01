@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  api:
+    build: .
+    hostname: api
+    tty: true
+    depends_on:
+      - db
+      - scraper
+    ports:
+      - "8080:5000"
+    env_file:
+      - .env
+    restart: always
+  scraper:
+    build: scraper/
+    hostname: scraper
+    tty: true
+    depends_on:
+      - db
+    env_file:
+      - scraper/.env
+    # restart: always
+  db:
+    image: mysql
+    hostname: database
+    tty: true
+    expose: 
+      - "3306"
+    env_file:
+      - db/.env
+    volumes:
+      - database_drive:/var/lib/mysql
+    restart: always
+
+volumes:
+  database_drive:
