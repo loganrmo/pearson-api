@@ -1,0 +1,194 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Pearson API",
+      "version": "1.0",
+      "x-logo": {
+        "url": ""
+      },
+      "description": "Application with multiple services, including a web scraper, database, and gateway/endpoints for queries. Provides data about flights departing from and arriving to Toronto Pearson International Airport.",
+      "contact": {
+        "name": "Logan Romero",
+        "email": ""
+      }
+    },
+    "paths": {
+      "/arrivals": {
+        "get": {
+          "tags": []
+        },
+        "x-last-modified": 1659376002458
+      },
+      "/departures/": {
+        "summary": "",
+        "get": {
+          "tags": []
+        },
+        "x-last-modified": 1659376013644
+      }
+    },
+    "components": {
+      "securitySchemes": {},
+      "schemas": {},
+      "headers": {},
+      "responses": {
+        "200": {
+          "description": "OK.",
+          "content": {
+            "application/json": {
+              "example": "[\r\n    {\r\n        flightCode: \"F81225\",\r\n        flightDate: \"2022-07-26\",\r\n        city: \"Vancouver\",\r\n        airportCode: \"YVR\",\r\n        airlineName: \"Flair Airlines\",\r\n        airlineCode: \"F8\",\r\n        scheduledTime: \"00:05\",\r\n        revisedTime: \"01:45\"\r\n        flightStatus: Arrived\r\n    }\r\n]"
+            }
+          },
+          "x-last-modified": 1659378339796
+        },
+        "400": {
+          "description": "Bad Request.  `JSON` object returned indicates which query fields are malformed.",
+          "content": {
+            "application/json": {
+              "example": "submit: 'Error: Bad Request',\r\nerrorFields: 'flightCode, startDate, endDate'"
+            }
+          },
+          "x-last-modified": 1659378075631
+        },
+        "404": {
+          "description": "Endpoint not found.",
+          "x-last-modified": 1659378395049,
+          "content": {
+            "application/json": {
+              "example": "{status: \"Endpoint not found\"}"
+            }
+          }
+        },
+        "500": {
+          "description": "Server Error.",
+          "content": {
+            "application/json": {
+              "encoding": "{message: \"Server Error\"}",
+              "example": "{message: \"Server Error\"}"
+            }
+          },
+          "x-last-modified": 1659377988105
+        }
+      },
+      "parameters": {
+        "startDate": {
+          "name": "startDate",
+          "in": "query",
+          "description": "Start date to query from in `YYYY-MM-DD` format. If `startDate` is present, `endDate` must be included as well. For one date, set `startDate` and `endDate` equal to the same value. Otherwise, `startDate` must be before `endDate`",
+          "required": false,
+          "deprecated": false,
+          "example": "startDate=2022-08-01",
+          "allowEmptyValue": true,
+          "x-last-modified": 1659376281493
+        },
+        "endDate": {
+          "name": "startDate",
+          "in": "query",
+          "description": "End date to query from in `YYYY-MM-DD` format. If `end` is present, `startDate` must be included as well. For one date, set `startDate` and `endDate` equal to the same value. Otherwise, `endDate` must be after `startDate`",
+          "required": false,
+          "deprecated": false,
+          "example": "endDate=2022-08-27",
+          "allowEmptyValue": true,
+          "x-last-modified": 1659376718469
+        },
+        "city": {
+          "name": "City",
+          "in": "query",
+          "description": "A string or array of strings denoting cities where flights have departed or arrived from.\n\nString should not be wrapped in quotes and arrays should not have spaces between values.",
+          "required": false,
+          "deprecated": false,
+          "example": "city=[Vancouver,San Francisco]\r\ncity=Vancouver",
+          "allowEmptyValue": true,
+          "x-last-modified": 1659376840873
+        },
+        "airlineName": {
+          "name": "Airline Name",
+          "in": "query",
+          "description": "String or array of strings denoting airline name.\n\nString should not be wrapped in quotes and arrays should not have spaces between values.",
+          "required": false,
+          "deprecated": false,
+          "example": "airlineName=[Air Canada,United Airlines]\r\nairlineName=Air Canada",
+          "allowEmptyValue": true,
+          "x-last-modified": 1659376849666
+        },
+        "flightCode": {
+          "name": "Flight Code",
+          "in": "query",
+          "description": "Flight code of the flight required. Can be a string or an array of strings. For example, `AC756`or `[AC756, AC757]`. \n\nString should not be wrapped in quotes and arrays should not have spaces between values.",
+          "required": false,
+          "deprecated": false,
+          "example": "flightCode=[AC756,AC757]\r\nflightCode=AC756",
+          "allowEmptyValue": true,
+          "x-last-modified": 1659377207696
+        },
+        "airlineCode": {
+          "name": "Airport Code",
+          "description": "`IATA` airport code, either two letters or a letter and a number. Can be a string or array of strings.\n\nString should not be wrapped in quotes and arrays should not have spaces between values.",
+          "required": false,
+          "deprecated": false,
+          "example": "airlineCode=[AC,UA]\r\nairlineCode=AC",
+          "x-last-modified": 1659377219583,
+          "in": "query",
+          "allowEmptyValue": true
+        },
+        "airportCode": {
+          "name": "Airport Code",
+          "description": "`IATA` airport code, three letters. Can be a string or array of strings.\n\nString should not be wrapped in quotes and arrays should not have spaces between values.",
+          "required": false,
+          "deprecated": false,
+          "example": "airportCode=[YYC,YVR]\r\nairportCode=YYC",
+          "x-last-modified": 1659377224911,
+          "in": "query",
+          "allowEmptyValue": true
+        },
+        "scheduledTime": {
+          "name": "Scheduled Time",
+          "in": "query",
+          "description": "Twenty four hour `HH:MM`time flight(s) were initially scheduled for. Can be individual or an array of times.\n\n",
+          "required": false,
+          "deprecated": false,
+          "example": "scheduledTime=[12:00, 17:12]\r\nscheduledTime=12:00",
+          "allowEmptyValue": true,
+          "x-last-modified": 1659377228016
+        },
+        "revisedTime": {
+          "name": "Scheduled Time",
+          "in": "query",
+          "description": "Twenty four hour `HH:MM`revised time for flight(s). Can be individual or an array of times.\n\n",
+          "required": false,
+          "deprecated": false,
+          "example": "revisedTime=[12:00, 17:12]\r\nrevisedTime=12:00",
+          "allowEmptyValue": true,
+          "x-last-modified": 1659377268077
+        },
+        "flightStatus": {
+          "name": "Flight Status",
+          "in": "query",
+          "description": "The status for flights queried. Can be a string value or an array of strings from the following schema depending on whether querying for departures or arrivals.\n\nString should not be wrapped in quotes and arrays should not have spaces between values.",
+          "required": false,
+          "deprecated": false,
+          "allowEmptyValue": true,
+          "x-last-modified": 1659377529720,
+          "example": "flightStatus=OnTime\r\nflightStatus=[OnTime,Canceled]",
+          "schema": {
+            "type": "array",
+            "items": "[\"Arrived\",\r\n\"Canceled\",\r\n\"Delayed\",\r\n\"Early\",\r\n\"OnTime\"]\r\n\r\n[\"Departed\",\r\n\"Delayed\",\r\n\"Canceled\",\r\n\"OnTime\"]\r\n"
+          }
+        }
+      }
+    },
+    "tags": [],
+    "servers": [
+      {
+        "url": "https://{HOST}/api/",
+        "description": "",
+        "variables": {
+          "HOST": {
+            "default": "default"
+          }
+        },
+        "x-last-modified": 1659375979873
+      }
+    ],
+    "security": []
+  }
