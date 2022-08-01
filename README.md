@@ -2,6 +2,23 @@
 
 Unofficial API that provides data about departures and arrivals at Toronto Pearson International Airport. Currently at version 1.0.0.
 
+
+### About
+As a developer and security engineer, I kept web security and systems security principles in mind during the entire development process. This was a hobby project that I wanted to use to learn about not only backend development and API design, but also API security and Secure Software Development. This repository is also stored on my HomeLab, where I am working on creating a CI/CD pipeline with SAST, DAST, secret scanning, and SCA/SBOM functionality.
+
+### Architecture
+The application consists of three parts:
+* API gateway and endpoints
+* SQL Database
+* Web scraping service
+
+The API gateway and endpoints are written in Node.js with Express.js. All sanitizing, querying, and validation is done on the server side (and written from scratch as a security exercise). The API can be queried and it retrieves information from the MySQL database. The MySQL database is updated once daily by the web scraping service, a tool I wrote in Python that scrapes the Pearson website.
+
+Each service is Dockerized and hardened, with `docker-compose` currently being used for orchestration. Secrets and credentials are managed through environment variables and the principle of least privilege is followed on all service accounts.
+
+In addition, an OpenAPI 3.0 spec is included. 
+
+
 ### Usage
 An OpenAPI 3.0 Spec is included in the repository.
 
@@ -48,17 +65,3 @@ Responses:
 * `404`: Invalid Endpoint
 * `500`: Server Error
 
-### About
-As a developer and security engineer, I kept web security and systems security principles in mind during the entire development process. This was a hobby project that I wanted to use to learn about not only backend development and API design, but also API security and Secure Software Development. This repository is also stored on my HomeLab, where I am working on creating a CI/CD pipeline with SAST, DAST, secret scanning, and SCA/SBOM functionality.
-
-### Architecture
-The application consists of three parts:
-* API gateway and endpoints
-* SQL Database
-* Web scraping service
-
-The API gateway and endpoints are written in Node.js with Express.js. All sanitizing, querying, and validation is done on the server side (and written from scratch as a security exercise). The API can be queried and it retrieves information from the MySQL database. The MySQL database is updated once daily by the web scraping service, a tool I wrote in Python that scrapes the Pearson website.
-
-Each service is Dockerized and hardened, with `docker-compose` currently being used for orchestration. Secrets and credentials are managed through environment variables and the principle of least privilege is followed on all service accounts.
-
-In addition, an OpenAPI 3.0 spec is included. 
